@@ -13,7 +13,7 @@ const server = new ApolloServer({
 });
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // if we're in production, serve client/build as static assets
@@ -27,7 +27,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
   // integrate our Apollo server with the Express application as middleware
   server.applyMiddleware({ app });
 
-  app.get('*', (req, res) => {
+  app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
 
